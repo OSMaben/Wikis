@@ -67,7 +67,7 @@ class Router
         return ob_get_clean();
     }
 
-    public function renderOnlyView($view, $param = []): false|string
+    public function renderOnlyView($view, $param = [])
     {
         extract($param);
         ob_start();

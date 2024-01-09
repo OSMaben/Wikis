@@ -122,7 +122,6 @@ optionSearch.addEventListener('keyup', function (){
 
 
 
-
 const selectBtn = document.querySelector(".select-btn"),
     items = document.querySelectorAll(".item");
 
@@ -134,24 +133,51 @@ items.forEach(item => {
   item.addEventListener("click", () => {
     item.classList.toggle("checked");
 
-    let checked = document.querySelectorAll(".checked"),
+    let checkedItems = document.querySelectorAll(".item.checked"),
         btnText = document.querySelector(".btn-text");
 
-    if(checked && checked.length > 0){
-      btnText.innerText = `${checked.length} Selected`;
-    }else{
-      btnText.innerText = "Select Language";
+    if (checkedItems && checkedItems.length > 0) {
+      btnText.innerText = `${checkedItems.length} Selected`;
+    } else {
+      btnText.innerText = "Select Tags";
     }
   });
+});
+
+
+
+
+
+let balise = document.getElementById('balise');
+let chihaja = document.querySelectorAll('.chihaja');
+chihaja.forEach((item , index)=>{
+  item.addEventListener('click',(e)=>{
+    balise.value = item.textContent;
+    console.log(item.textContent)
+  })
 })
 
+let tags = document.getElementById('tags');
+let checked = document.querySelectorAll('.checked');
+let arr = [] ;
+checked.forEach((item , index)=>{
+  item.addEventListener('click',(e)=>{
+
+    let tag = item.textContent;
+
+    if(!arr.includes(item.textContent))
+    {
+      arr.push(item.textContent);
+      // tags.value = arr.join(', ');
+    }else {
+      console.log('Tag already exists in the array');
+    }
 
 
-
-
-
-
-
+    console.log(arr)
+    tags.value = arr;
+  })
+})
 
 
 

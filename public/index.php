@@ -5,6 +5,7 @@
 use app\core\Application;
 use app\controllers\UserController;
 use app\controllers\AuthController;
+use app\controllers\WriterController;
 $app = new Application(dirname(__DIR__));
 $app->router->get('/', 'home');
 
@@ -16,8 +17,8 @@ $app->router->get('/login','login');
 $app->router->post('/login',[AuthController::class, 'login']);
 
 
-$app->router->get('/addArticle','addArticle');
-
+$app->router->get('/addArticle',[WriterController::class, 'showData']);
+$app->router->post('/addArticle',[WriterController::class, 'AddWiki']);
 
 
 $app->run();
