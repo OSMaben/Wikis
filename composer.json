@@ -1,0 +1,17 @@
+{
+    "name": "youcode/wikis",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "osmben",
+            "email": "freegiftcardishere@gmail.com"
+        }
+    ],
+    "require": {
+        "ext-pdo": "*"
+    }
+}

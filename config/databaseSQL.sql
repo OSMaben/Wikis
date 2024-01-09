@@ -1,0 +1,42 @@
+
+CREATE TABLE Roles (
+    RoleID INT PRIMARY KEY AUTO_INCREMENT,
+    RoleName VARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE Categories (
+    CategoryID INT PRIMARY KEY AUTO_INCREMENT,
+    CategoryName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Tags (
+    TagID INT PRIMARY KEY AUTO_INCREMENT,
+    TagName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY AUTO_INCREMENT,
+    UserName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    RoleID INT,
+    FOREIGN KEY (RoleID) REFERENCES Roles (RoleID)
+);
+
+CREATE TABLE ArticleTags (
+    wikisID INT,
+    TagID INT,
+    FOREIGN KEY (wikisID) REFERENCES wikis(wikisID),
+    FOREIGN KEY (TagID) REFERENCES Tags(TagID)
+);
+
+CREATE TABLE wikis (
+    wikisID INT PRIMARY KEY AUTO_INCREMENT,
+    Title VARCHAR(255) NOT NULL,
+    Content TEXT NOT NULL,
+    PublishedDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UserID INT,
+    CategoryID INT,
+    FOREIGN KEY (CategoryID) REFERENCES Categories (CategoryID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
