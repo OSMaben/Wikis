@@ -35,8 +35,6 @@ class AuthController extends UserController
 // Function to check if input is valid (you can customize this based on your validation rules)
 
 
-
-
     public function login()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -65,6 +63,11 @@ class AuthController extends UserController
                     $_SESSION['role'] = $res;
                     $this->router->redirect("/");
                 }
+                else
+                {
+                    $this->router->redirect("/login");
+                }
+
             }else
             {
                 echo "<p class='alert alert-danger'>There was an error</p>";

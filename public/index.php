@@ -1,6 +1,7 @@
 <?php
     session_start();
     require_once __DIR__. '/../vendor/autoload.php';
+
 use app\core\Application;
 use app\controllers\UserController;
 use app\controllers\AuthController;

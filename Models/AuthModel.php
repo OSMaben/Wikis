@@ -23,7 +23,7 @@ class AuthModel extends UserModel
 //login
     public function findAccount($email,$password)
     {
-        $sql = "SELECT * from users where Email= '{$email}'";
+        $sql = "SELECT * from users where Email = '{$email}'";
         $conn = $this->database;
         try {
             $stmt = $conn->prepare($sql);

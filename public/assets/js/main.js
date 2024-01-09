@@ -70,3 +70,89 @@ window.addEventListener('load', () => {
   ],
   ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
 });
+
+
+//search option in tags ==============================================
+
+const selectBox = document.querySelector('.select-box');
+const selectOption = document.querySelector('.select-option');
+const soValue = document.getElementById('soValue');
+const optionSearch = document.getElementById('optionSearch');
+const options = document.querySelector('.options');
+const optionList = document.querySelectorAll('.options li');
+
+selectOption.addEventListener('click', function ()
+{
+  selectBox.classList.toggle('active');
+});
+
+optionList.forEach(function(optionListSingl) {
+  optionListSingl.addEventListener('click', function() {
+    text = this.textContent;
+    soValue.value = text;
+    selectBox.classList.remove('active');
+  });
+});
+
+optionSearch.addEventListener('keyup', function (){
+  var filter , li , i, textValue;
+
+  filter = optionSearch.value.toUpperCase();
+  console.log(filter)
+  li = options.getElementsByTagName('li');
+  for(i = 0 ; i < li.length; i++)
+  {
+    liCount = li[i];
+    textValue = liCount.textContent || liCount.innerHTML;
+    if(textValue.toUpperCase().indexOf(filter) > -1)
+    {
+        li[i].style.display = '';
+    }
+    else
+      li[i].style.display = 'none';
+  }
+
+})
+
+
+
+
+//category select==================================
+
+
+
+
+
+const selectBtn = document.querySelector(".select-btn"),
+    items = document.querySelectorAll(".item");
+
+selectBtn.addEventListener("click", () => {
+  selectBtn.classList.toggle("open");
+});
+
+items.forEach(item => {
+  item.addEventListener("click", () => {
+    item.classList.toggle("checked");
+
+    let checked = document.querySelectorAll(".checked"),
+        btnText = document.querySelector(".btn-text");
+
+    if(checked && checked.length > 0){
+      btnText.innerText = `${checked.length} Selected`;
+    }else{
+      btnText.innerText = "Select Language";
+    }
+  });
+})
+
+
+
+
+
+
+
+
+
+
+
+
