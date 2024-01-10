@@ -6,4 +6,6 @@ use app\Models\AdminModel;
 class AdminController
 {
 
+
+
 }

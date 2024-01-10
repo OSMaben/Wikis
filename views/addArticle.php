@@ -25,16 +25,10 @@
                               <input type="text" id="optionSearch" placeholder="Search Your Tag">
                           </div>
                           <ul class="options">
-                              <?php
-                              if (!empty($datas) && is_array($datas)) {
-                                  foreach ($datas as $dt) {
-                                      echo "<li class='chihaja'>$dt[CategoryName]</li>";
-                                  }
-                              } else {
-                                  echo "No data available";
-                              }
-                              ?>
-                          </ul>
+                              <?php foreach ($data as $dt): ?>
+                                  <li class='chihaja' data-category-id="<?php echo $dt['CategoryID']; ?>"><?php echo $dt['CategoryName']; ?></li>
+                              <?php endforeach; ?>
+                            </ul>
                       </div>
                   </div>
 
@@ -43,42 +37,14 @@
                           <span class="btn-text">Select Tags</span>
                       </div>
                       <ul class="list-items">
-                          <li class="item " >
+                          <?php foreach ($tags as $tag): ?>
+                              <li class="item " >
                             <span class="checkbox">
                                 <i class="bi bi-check check-icon"></i>
                             </span>
-                              <span class="item-text checked">HTML & CSS</span>
-                          </li>
-                          <li class="item ">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                              <span class="item-text checked">Bootstrap</span>
-                          </li>
-                          <li class="item ">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                              <span class="item-text checked">JavaScript</span>
-                          </li>
-                          <li class="item ">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                              <span class="item-text checked">Node.Js</span>
-                          </li>
-                          <li class="item ">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                              <span class="item-text checked">React JS</span>
-                          </li>
-                          <li class="item ">
-                            <span class="checkbox">
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </span>
-                              <span class="item-text checked">Mango DB</span>
-                          </li>
+                                  <span class="item-text checked"><?= $tag['TagName']?></span>
+                              </li>
+                          <?php endforeach; ?>
                       </ul>
                   </div>
                   <div class="mb-3">
@@ -86,7 +52,7 @@
                       </textarea>
                   </div>
                   <button class="btn btn-primary " style="font-family: Nunito, sans-serif; box-shadow: 0px 5px 30px rgba(65, 84, 241, 0.4)">
-                      // Submit To Review
+                      // Submit
                   </button>
               </form>
 

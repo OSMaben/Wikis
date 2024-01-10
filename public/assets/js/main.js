@@ -147,15 +147,15 @@ items.forEach(item => {
 
 
 
-
 let balise = document.getElementById('balise');
 let chihaja = document.querySelectorAll('.chihaja');
-chihaja.forEach((item , index)=>{
-  item.addEventListener('click',(e)=>{
-    balise.value = item.textContent;
-    console.log(item.textContent)
-  })
-})
+chihaja.forEach((item, index) => {
+  item.addEventListener('click', (e) => {
+    let categoryId = item.getAttribute('data-category-id');
+    balise.value = categoryId;
+    console.log(categoryId);
+  });
+});
 
 let tags = document.getElementById('tags');
 let checked = document.querySelectorAll('.checked');
@@ -172,7 +172,6 @@ checked.forEach((item , index)=>{
     }else {
       console.log('Tag already exists in the array');
     }
-
 
     console.log(arr)
     tags.value = arr;

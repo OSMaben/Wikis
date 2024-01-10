@@ -55,8 +55,8 @@
                                       </button>
                                       <ul class='dropdown-menu'>
                                         <li><a class='dropdown-item' href='#'>Profil</a></li>
-                                        <li><a class='dropdown-item' href='#'>Add Articles</a></li>
-                                        <li><a class='dropdown-item' href='#'>Log Out</a></li>
+                                        <li><a class='dropdown-item' href='/addArticle'>Add Articles</a></li>
+                                        <li><a class='dropdown-item' href='/logout'>Log Out</a></li>
                                       </ul>
                                     </div>
                             ";

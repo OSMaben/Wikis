@@ -34,6 +34,49 @@ class WriterModel extends UserModel
         return $stml;
     }
 
+
+    public function insertWiki($category, $tagsString, $title, $content, $userid)
+    {
+
+        $sql = "INSERT INTO wikis (CategoryID, Title, Content, UserID , archieve) VALUES (:category, :title, :content,:userid, false)";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':category', $category, \PDO::PARAM_INT);
+        $stmt->bindParam(':title', $title, \PDO::PARAM_STR);
+        $stmt->bindParam(':content', $content, \PDO::PARAM_STR);
+        $stmt->bindParam(':userid', $userid, \PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $lastWikiID = $this->database->getLastInsertId();
+
+        // Insert data into the articletags table
+        $tagsArray = explode(',', rtrim($tagsString, ','));
+        foreach ($tagsArray as $tagName) {
+            // Fetch the tagID based on the tag name (you need to implement this query)
+            $tagID = $this->getTagIDByName($tagName);
+
+            if ($tagID !== false) {
+                $tagSql = "INSERT INTO articletags (wikisID, TagID) VALUES (:wikisID, :tagID)";
+                $tagStmt = $this->database->prepare($tagSql);
+                $tagStmt->bindParam(':wikisID', $lastWikiID, \PDO::PARAM_INT);
+                $tagStmt->bindParam(':tagID', $tagID, \PDO::PARAM_INT);
+                $tagStmt->execute();
+            }
+        }
+    }
+
+
+    private function getTagIDByName($tagName)
+    {
+        $sql = "SELECT TagID FROM tags WHERE TagName = :tagName";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':tagName', $tagName, \PDO::PARAM_STR);
+        $stmt->execute();
+
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return $result ? $result['TagID'] : false;
+    }
     public function delete($table, $column, $id)
     {
         $stml = $this->database->prepare("DELETE FROM {$table} WHERE ({$column}) = ('{$id}')");

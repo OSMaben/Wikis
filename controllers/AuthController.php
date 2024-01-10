@@ -48,19 +48,14 @@ class AuthController extends UserController
                 $user = new AuthModel();
                 $res = $user->findAccount($email, $password);
 
-                if($res == "Admin")
-                {
-                    $_SESSION['role'] = $res;
+                $_SESSION['role'] = $res['Role'];
+                $_SESSION['idUser'] = $res['UserID'];
+
+                if ($res['Role'] == "Admin") {
                     $this->router->redirect("admin");
-                }
-                if($res == "Author")
-                {
-                    $_SESSION['role'] = $res;
+                } elseif ($res['Role'] == "Author") {
                     $this->router->redirect("reservation");
-                }
-                if($res == "Reader")
-                {
-                    $_SESSION['role'] = $res;
+                } elseif ($res['Role'] == "Reader") {
                     $this->router->redirect("/");
                 }
                 else
@@ -83,5 +78,11 @@ class AuthController extends UserController
         $data = addslashes($data);
 
         return $data;
+    }
+
+    public function destroy()
+    {
+        session_destroy();
+        return $this->router->redirect('/');
     }
 }

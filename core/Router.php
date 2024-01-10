@@ -53,25 +53,27 @@ class Router
         return $this->renderView(404);
     }
 
-    public function renderView($view, $variable = [])
+    public function renderView($view, $variables = [])
     {
         $layoutContent = $this->layoutContent();
-        $viewContent = $this->renderOnlyView($view, $variable = []);
+        $viewContent =  $this->renderOnlyView($view, $variables);
         return str_replace("{{content}}", $viewContent, $layoutContent);
     }
 
-    public function layoutContent(): false|string
+    protected function renderOnlyView($view, $variables = [])
     {
+        extract($variables);
+
         ob_start();
-        require_once Application::$root."/views/layouts/main.php";
+        require_once Application::$ROOT_DIR."/views/$view.php";
         return ob_get_clean();
     }
 
-    public function renderOnlyView($view, $param = [])
+
+    protected function layoutContent()
     {
-        extract($param);
         ob_start();
-        require_once Application::$root."/views/$view.php";
+        require_once Application::$ROOT_DIR."/views/layouts/main.php";
         return ob_get_clean();
     }
 

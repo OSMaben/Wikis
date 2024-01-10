@@ -30,15 +30,11 @@ class AuthModel extends UserModel
             $stmt->execute();
             $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-            if ($user && password_verify($password, $user['Password']))
-            {
-                if ($user['RoleID'] == 1) {
-                    return $role = "Admin";
-                } else if ($user['RoleID'] == 2) {
-                    return $role = "Author";
-                } else {
-                    return $role = "Reader";
-                }
+            if ($user && password_verify($password, $user['Password'])) {
+                return [
+                    'UserID' => $user['UserID'],
+                    'Role' => ($user['RoleID'] == 1) ? "Admin" : (($user['RoleID'] == 2) ? "Author" : "Reader"),
+                ];
             }else
                 return false;
         }catch (\PDOException $e)
