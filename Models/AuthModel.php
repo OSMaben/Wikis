@@ -33,7 +33,7 @@ class AuthModel extends UserModel
             if ($user && password_verify($password, $user['Password'])) {
                 return [
                     'UserID' => $user['UserID'],
-                    'Role' => ($user['RoleID'] == 1) ? "Admin" : (($user['RoleID'] == 2) ? "Author" : "Reader"),
+                    'Role' => ($user['RoleID'] == 1) ? "Admin" : (($user['RoleID'] == 2) ? "Author" : "Reader")
                 ];
             }else
                 return false;
@@ -41,6 +41,5 @@ class AuthModel extends UserModel
         {
             echo "Error: " . $e->getMessage();
         }
-
     }
 }

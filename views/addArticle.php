@@ -3,7 +3,7 @@
        <div>
            <div class="container">
 
-              <form method="POST">
+              <form method="POST" enctype="multipart/form-data">
                   <input type="hidden" name="category" placeholder="click" id="balise">
                   <input type="hidden" name="tags" placeholder="click" id="tags">
                   <div class="input-group mb-3">

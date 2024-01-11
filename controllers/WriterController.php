@@ -15,7 +15,6 @@ class WriterController
         $this->writerModel = new WriterModel();
         $this->router = new Router();
     }
-	
 
     public function showData()
     {
@@ -50,14 +49,54 @@ class WriterController
                 $tags = $_POST['tags'];
                 $title = $_POST['title'];
                 $content = $_POST['content'];
+                $imgname = $_FILES["image"]["name"];
+                $imgtmpname = $_FILES["image"]["tmp_name"];
+                $folder = "./assets/img/dataBase/" . $imgname;
 
-                $this->writerModel->insertWiki($category,$tags,$title, $content, $_SESSION['idUser'] );
+                $this->writerModel->insertWiki($category,$tags,$title, $content, $imgname,$_SESSION['idUser'] );
 
+                if (move_uploaded_file($imgtmpname, $folder)) {
+                    echo "<h3>  Image uploaded successfully!</h3>";
+                } else {
+                    echo "<h3>  Failed to upload image!</h3>";
+                }
                 return $this->router->redirect('/');
-
             }
-
-
+//            else
+//            {
+//                return $this->router->redirect('/addArticle');
+//            }
         }
     }
+
+
+
+    public function showWikis()
+    {
+        $wikis = $this->writerModel->showWikisModel();
+
+        return $this->router->renderView('home', ['wikis' => $wikis]);
+    }
+
+    public function showSinglWikis()
+    {
+        $singleWiki = $this->writerModel->showSignlWiki($_GET['id']);
+        $category = $this->writerModel->getCategry($_GET['id']);
+        return $this->router->renderView('blog-single', ['singleWiki' => $singleWiki, "category" =>$category]);
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
