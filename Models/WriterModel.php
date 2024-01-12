@@ -288,4 +288,17 @@ class WriterModel extends UserModel
         return $result;
     }
 
+    public function searchWiki($searchInput)
+    {
+
+            $sql = "SELECT * FROM wikis WHERE Title LIKE :searchInput";
+            $stmt = $this->database->prepare($sql);
+            $str = "%$searchInput%";
+            $stmt->bindParam(':searchInput', $str, \PDO::PARAM_STR);
+            $stmt->execute();
+
+            $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $results;
+    }
+
 }

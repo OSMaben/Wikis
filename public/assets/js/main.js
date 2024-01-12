@@ -177,3 +177,37 @@ checked.forEach((item , index)=>{
     tags.value = arr;
   })
 })
+
+
+
+//Search Using AJAX
+document.addEventListener("DOMContentLoaded", function () {
+  var searchInput = document.getElementById("search");
+  var searchResultContainer = document.getElementById("search_result");
+
+  searchInput.addEventListener("keyup", function () {
+    var input = searchInput.value;
+
+    if (input !== "") {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "search.php", true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          // Clear previous results
+          searchResultContainer.innerHTML = "";
+          // Append the new search results
+          searchResultContainer.innerHTML += xhr.responseText;
+          searchResultContainer.style.display = "flex";
+        }
+      };
+
+      xhr.send("input=" + input);
+    } else {
+      // Handle the case when the search input is empty
+      searchResultContainer.innerHTML = "";
+      searchResultContainer.style.display = "none";
+    }
+  });
+});

@@ -46,4 +46,14 @@ class UserController
             return $this->router->redirect('/');
     }
 
+    public function result()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            $searchInput = $_POST['input'];
+            $result = $this->writerModel->searchWiki($searchInput);
+            return $this->router->renderView('home' , ['result' => $result]);
+        }
+    }
+
 }

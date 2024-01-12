@@ -34,10 +34,12 @@
             <header class="section-header d-block">
 
                <div class="blog">
-                   <div class="input-group mb-3">
-                       <input type="text" class="form-control" placeholder="Type To Search" aria-label="Example text with button addon"  aria-describedby="button-addon1">
-                       <i class="bi bi-search-heart btn btn-outline-secondary"></i>
-                   </div>
+                  <form method="POST">
+                      <div class="input-group mb-3">
+                          <input type="text" class="form-control" name="input" id="search" placeholder="Type To Search" aria-label="Example text with button addon"  aria-describedby="button-addon1">
+                          <button type="submit" name="submit" ><i class="bi bi-search-heart btn btn-outline-secondary"></i></button>
+                      </div>
+                  </form>
                    <h2>Blog</h2>
                    <p>Recent posts form our Blog</p>
                </div>
@@ -70,6 +72,18 @@
                     </div>
                 </div>
                 <?php endforeach; ?>
+
+                <?php if (!empty($result)): ?>
+                    <h3>Search Results:</h3>
+                    <div class="search-results">
+                        <?php foreach ($result as $searchResult): ?>
+                            <div class="search-result">
+                                <h2><?php echo $searchResult['Title']; ?></h2>
+                                <!-- Display other information about the search result as needed -->
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </section><!-- End Recent Blog Posts Section -->
