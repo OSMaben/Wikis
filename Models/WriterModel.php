@@ -23,15 +23,15 @@ class WriterModel extends UserModel
         return $result;
     }
 
-    public function showArticles($table, $columns, $id)
-    {
-        $columns = implode(",",$columns);
-        $stml = $this->database->prepare("SELECT {$columns} FROM {$table} WHERE ID_Articles = :id");
-        $stml->bindParam(":id",  $id);
+    public function updateSingWiki($table, $columns, $id) {
+        $columns = implode(",", $columns);
+        $stml = $this->database->prepare("SELECT {$columns} FROM {$table} WHERE wikisID = :id");
+        $stml->bindParam(':id', $id, \PDO::PARAM_INT);
         $stml->execute();
-        $row = $stml->fetch();
-        return $row;
+        $result = $stml->fetch(\PDO::FETCH_ASSOC);
+        return $result;
     }
+
 
     public function insert($table, $columns,$values)
     {
@@ -73,6 +73,22 @@ class WriterModel extends UserModel
     }
 
 
+
+
+    public function UpdateSingWikiWrite($title, $content, $image ,$id)
+    {
+        $sql = "UPDATE `wikis` SET `Title`=:title,`Content`=:content, `image`= :image WHERE wikisID = :id";
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':title', $title, \PDO::PARAM_STR);
+        $stmt->bindParam(':content', $content, \PDO::PARAM_STR);
+        $stmt->bindParam(':image', $image, \PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+
     private function getTagIDByName($tagName)
     {
         $sql = "SELECT TagID FROM tags WHERE TagName = :tagName";
@@ -91,21 +107,16 @@ class WriterModel extends UserModel
         return $stml;
     }
 
-    public function update($table, $key, $value, $where) {
-        $updateData = '';
+    public function update($table, $value, $where) {
 
-        for($i = 0; $i < count($key); $i++)
-        {
-            $updateData .= "{$key[$i]} = '{$value[$i]}'";
-            if($i < count($key) - 1)
-            {
-                $updateData .= ",";
-            }
-        }
-        $stml = $this->database->prepare("UPDATE {$table} SET $updateData WHERE $where");
-        $stml->execute();
-        return $stml->rowCount();
+        $sql = "UPDATE {$table} SET TagName = '$value' WHERE TagID = $where";
+
+        $stmt = $this->database->prepare($sql);
+
+        $stmt->execute();
+        return $stmt->rowCount();
     }
+
 
     public function showWikisModel()
     {
@@ -166,6 +177,14 @@ class WriterModel extends UserModel
         return $result;
     }
 
+
+    public function UpdateWiki()
+    {
+
+    }
+
+
+
     public function getCategry($id)
     {
         $sql = "SELECT
@@ -215,5 +234,58 @@ class WriterModel extends UserModel
         $stmt->execute();
     }
 
+    public function deleteTagAndCateggory($table1,$table2, $id, $condition)
+    {
+
+        $sql = "SELECT COUNT(*) FROM {$table1} WHERE $condition = :id";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+
+        if($count > 0)
+        {
+            $sql = "DELETE FROM {$table1} WHERE $condition = :id";
+            $stmt = $this->database->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        }
+
+        $sql = "DELETE FROM {$table2} WHERE $condition = :id";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
+    public function updateCategory($table, $value, $where) {
+
+
+        $sql = "UPDATE {$table} SET CategoryName = '$value' WHERE CategoryID = $where";
+
+        $stmt = $this->database->prepare($sql);
+
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+
+    public function UpdateSingleCategry()
+    {
+        $sql = "SELECT * FROM categories";
+        $stmt = $this->database->prepare($sql)  ;
+        $stmt->execute();
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+
+    public function UpdateSingleTag()
+    {
+        $sql = "SELECT * FROM tags";
+        $stmt = $this->database->prepare($sql)  ;
+        $stmt->execute();
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
+    }
 
 }

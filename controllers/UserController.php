@@ -18,7 +18,7 @@ class UserController
     // this is for the writer
     public function showUsers()
     {
-        if(isset($_SESSION['role']) && $_SESSION['role'] == 'Admin') {
+        if(isset($_SESSION['role']) && $_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'Reader') {
             $wikis = $this->writerModel->showWiki('wikis', ['wikisID','Title', 'PublishedDate', 'archieve'], $_SESSION['idUser']);
             $users = $this->writerModel->show('users', ['UserID','UserName', 'Email', 'RoleID']);
             $wikisNumber = $this->writerModel->Analytics('wikis');

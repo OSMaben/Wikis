@@ -35,10 +35,76 @@ class AdminController extends UserController
     }
 
 
-    public function AddTag()
+        public function AddTag()
+        {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                if ($_POST['submit'] == 'edit') {
+                    $tag = $_POST['tag'];
+                    $id = $_POST['edit'];
+                    $this->writerModel->update('tags',  $tag , $id);
+                }
+                if ($_POST['submit'] == 'add') {
+                    $tag = $_POST['tag'];
+                    $this->writerModel->insert('tags', 'TagName', $tag);
+                }
+
+                return $this->router->redirect('addTag');
+            }
+
+        }
+
+
+
+    public function deleteTag()
     {
-        $tag = $_POST['tag'];
-        $this->writerModel->insert('tags','TagName', $tag);
-        return  $this->router->redirect('addTag');
+        $id = $_GET['id'];
+        if(isset($_SESSION['role']) && $_SESSION['role'] == 'Admin') {
+            $this->writerModel->deleteTagAndCateggory('articletags','tags', $id, 'TagID');
+            return $this->router->redirect('addTag');
+        }
+        else
+            return $this->router->redirect('/');
     }
+
+    public function showcategories()
+    {
+        if(isset($_SESSION['role']) && $_SESSION['role'] == 'Admin' || $_SESSION['role'] == 'Reader') {
+           $categories =  $this->writerModel->show('categories', ['CategoryID', 'CategoryName']);
+            return $this->router->renderView('Categories' ,['categories' => $categories]);
+        }
+        else
+            return $this->router->redirect('/');
+    }
+    public function deleteCategory()
+    {
+        $id = $_GET['id'];
+        if(isset($_SESSION['role']) && $_SESSION['role'] == 'Admin') {
+            $this->writerModel->deleteTagAndCateggory('wikis', 'categories',$id, 'CategoryID');
+            return $this->router->redirect('categories');
+        }
+        else
+            return $this->router->redirect('/');
+    }
+    public function addcategories()
+    {
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($_POST['submit'] == 'edit') {
+                $tag = $_POST['cate'];
+                $id = $_POST['edit'];
+                $this->writerModel->updateCategory('categories',  $tag , $id);
+            }
+            if ($_POST['submit'] == 'add') {
+                $cate = $_POST['cate'];
+                $this->writerModel->insert('categories','CategoryName', $cate);
+            }
+            return  $this->router->redirect('categories');
+        }
+
+
+
+
+    }
+
+
 }

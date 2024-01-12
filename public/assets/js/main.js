@@ -177,7 +177,3 @@ checked.forEach((item , index)=>{
     tags.value = arr;
   })
 })
-
-
-
-

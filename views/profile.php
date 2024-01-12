@@ -33,7 +33,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link link-body-emphasis">
+                        <a href="/categories" class="nav-link link-body-emphasis">
                             <i class="bi bi-bookmarks"></i>
                             Categories
                         </a>
@@ -100,35 +100,7 @@
             <?php }; ?>
 
 
-            <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'Reader'){?>
 
-                <h2 class="sub-header">Users</h2>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>publish Date</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($wikis as $wiki): ?>
-
-                            <tr>
-                                <td><?= $wiki['wikisID']?></td>
-                                <td><?= $wiki['Title']?></td>
-                                <td><?= $wiki['PublishedDate']?></td>
-                                <td><a href="/delete?id=<?=$wiki['wikisID']?>" class="btn btn-danger"><i class="bi bi-trash3"></i></a></td>
-                                <td><a href="/updateWiki?id=<?=$wiki['wikisID']?>" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a></td>
-                            </tr>
-                        <?php endforeach; ?>
-
-                        </tbody>
-                    </table>
-                </div>
-            <?php }; ?>
         </div>
     </div>
 </div>

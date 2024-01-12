@@ -20,7 +20,7 @@
           <div class="col-lg-8 entries">
 
             <article class="entry entry-single">
-        <?php foreach ($singleWiki as $single): ?>
+            <?php foreach ($singleWiki as $single): ?>
 
               <div class="entry-img">
                 <img src="./assets/img/dataBase/<?= $single['image']?>" alt="" class="img-fluid">
@@ -57,20 +57,7 @@
 
             </article>
 
-            <div class="blog-author d-flex align-items-center">
-              <img src="assets/img/blog/blog-author.jpg" class="rounded-circle float-left" alt="">
-              <div>
-                <h4>Jane Smith</h4>
-                <div class="social-links">
-                  <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
-                  <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
-                  <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
-                </div>
-                <p>
-                  Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.
-                </p>
-              </div>
-            </div>
+
 
         
 
