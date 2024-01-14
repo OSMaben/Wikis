@@ -47,26 +47,25 @@
                     }
                     else
                     {
-                        if($_SESSION['role'] == 'Reader'){
+                        if($_SESSION['role'] == 'Reader' || $_SESSION['role'] == 'Admin'){
                             echo "
                                 <div class='dropdown'>
                                        <button class='btn btn-primary mx-4' style='font-family: Nunito, sans-serif; box-shadow: 0px 5px 30px rgba(65, 84, 241, 0.4)'>
                                          // profile
                                       </button>
                                       <ul class='dropdown-menu'>
-                                        <li><a class='dropdown-item' href='#'>Profil</a></li>
-                                        <li><a class='dropdown-item' href='#'>Add Articles</a></li>
-                                        <li><a class='dropdown-item' href='#'>Log Out</a></li>
+                                        <li><a class='dropdown-item' href='/profile'>Profil</a></li>
+                                        <li><a class='dropdown-item' href='/addArticle'>Add Articles</a></li>
+                                        <li><a class='dropdown-item' href='/logout'>Log Out</a></li>
                                       </ul>
                                     </div>
                             ";
                         }
                         else
                         {
-                            echo "!Reader";
+                            echo " ";
                         }
                     }
-
                 ?>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
@@ -83,7 +82,6 @@
 
     <div class="container">
         <div class="copyright">
-            &copy; Copyright <strong><span>FlexStart</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
             Designed by <a href="">oussama ben mazzi</a>

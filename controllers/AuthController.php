@@ -35,8 +35,6 @@ class AuthController extends UserController
 // Function to check if input is valid (you can customize this based on your validation rules)
 
 
-
-
     public function login()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -49,22 +47,21 @@ class AuthController extends UserController
                 $password = $this->validation($password);
                 $user = new AuthModel();
                 $res = $user->findAccount($email, $password);
+                $_SESSION['role'] = $res['Role'];
+                $_SESSION['idUser'] = $res['UserID'];
 
-                if($res == "Admin")
-                {
-                    $_SESSION['role'] = $res;
-                    $this->router->redirect("admin");
-                }
-                if($res == "Author")
-                {
-                    $_SESSION['role'] = $res;
+                if ($res['Role'] == "Admin") {
+                    $this->router->redirect("profile");
+                } elseif ($res['Role'] == "Author") {
                     $this->router->redirect("reservation");
-                }
-                if($res == "Reader")
-                {
-                    $_SESSION['role'] = $res;
+                } elseif ($res['Role'] == "Reader") {
                     $this->router->redirect("/");
                 }
+                else
+                {
+                    $this->router->redirect("/login");
+                }
+
             }else
             {
                 echo "<p class='alert alert-danger'>There was an error</p>";
@@ -80,5 +77,11 @@ class AuthController extends UserController
         $data = addslashes($data);
 
         return $data;
+    }
+
+    public function destroy()
+    {
+        session_destroy();
+        return $this->router->redirect('/');
     }
 }

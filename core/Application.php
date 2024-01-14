@@ -4,10 +4,10 @@ namespace app\core;
 class Application
 {
     public Router  $router;
-    static  public string $root;
+    static  public string $ROOT_DIR;
     public function __construct($rootPath)
     {
-        SELF::$root = $rootPath;
+        SELF::$ROOT_DIR = $rootPath;
         $this->router = new Router();
     }
 

@@ -65,12 +65,14 @@ section {
 .select-box
 {
   position: relative;
-  width: 100%;
 }
+
+
 
 .select-option
 {
   position: relative;
+  width: 100%;
 }
 
 .select-option input
@@ -78,23 +80,186 @@ section {
   width: 100%;
   outline: none;
   border-radius: 7px;
-  padding: 15px 20px;
+  padding: 8px 20px;
   cursor: pointer;
   font-size: 22px;
-  border: 0 !important;
+  border: 1.9px solid #ddd7d7 !important;
 }
 
 .select-option::after
 {
   content: "";
   position: absolute;
-  border-top: 12px solid #000;
+  border-top: 12px solid #fff;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   right: 15px;
   top: 50%;
-  margin-top: -70px;
+  margin-top: -5px;
 }
+
+
+.select-box .content
+{
+  position: absolute;
+  margin-top: 15px;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 999;
+  top: 4.5rem;
+  width: 100%;
+}
+
+
+.select-box.active .content
+{
+  display: block;
+}
+.select-box.active .select-option::after
+{
+  transform: rotate(-180deg);
+}
+
+.search input
+{
+  width: 100%;
+  font-size: 17px;
+  padding: 15px;
+  outline: none;
+  border-radius: 5px;
+  border:1px #000 solid ;
+}
+
+.options
+{
+  overflow-y:auto;
+  height: 250px;
+  margin-top: 10px;
+  padding: 0;
+}
+
+
+.options li
+{
+  padding: 10px 15px;
+  border-right: 5px;
+  font-size: 19px;
+  font-family: "Nunito", sans-serif;
+  cursor: pointer;
+
+}
+.options li:hover
+{
+  background: #7a7a7a;
+  color: white;
+}
+
+
+
+
+.select-btn{
+  display: flex;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  border: 1px solid #cdcbcb;
+}
+.select-btn .btn-text{
+  font-size: 17px;
+  font-weight: 400;
+  color: #333;
+}
+.select-btn .arrow-dwn{
+  display: flex;
+  height: 21px;
+  width: 21px;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 50%;
+  background: #6e93f7;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+.select-btn.open .arrow-dwn{
+  transform: rotate(-180deg);
+}
+.list-items{
+  position: absolute;
+  margin-top: 15px;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 999;
+  top: 2.5rem;
+}
+.select-btn.open ~ .list-items{
+  display: block;
+}
+.list-items .item{
+  display: flex;
+  align-items: center;
+  list-style: none;
+  height: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 0 15px;
+  border-radius: 8px;
+}
+.list-items .item:hover{
+  background-color: #e7edfe;
+}
+.item .item-text{
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+}
+.item .checkbox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 16px;
+  width: 16px;
+  border-radius: 4px;
+  margin-right: 12px;
+  border: 1.5px solid #c0c0c0;
+  transition: all 0.3s ease-in-out;
+}
+.item.checked .checkbox{
+  background-color: #4070f4;
+  border-color: #4070f4;
+}
+.checkbox .check-icon{
+  color: #fff;
+  font-size: 15px;
+  transform: scale(0);
+  transition: all 0.2s ease-in-out;
+}
+.item.checked .check-icon{
+  transform: scale(1);
+}
+
+
+ul.list-items {
+  width: 100%;
+}
+
+
+
+
+
+
+
+
 
 
 

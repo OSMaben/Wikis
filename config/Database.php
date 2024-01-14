@@ -19,4 +19,9 @@ class Database
     {
         return $this->connect->prepare($sql);
     }
+
+    public function getLastInsertId()
+    {
+        return $this->connect->lastInsertId();
+    }
 }
